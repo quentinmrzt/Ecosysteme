@@ -11,4 +11,8 @@ public class Mouton extends Animal {
 		age = 0;
 		energie = 10;
 	}
+
+	public String toString() {
+		return "M";
+	}
 }

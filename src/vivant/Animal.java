@@ -1,6 +1,6 @@
 package vivant;
 
-public class Animal {
+public abstract class Animal {
 	protected int vie;
 	protected int nourriture;
 	protected int eau;
@@ -14,4 +14,22 @@ public class Animal {
 		posX = x;
 		posY = y;
 	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+	
+	public abstract String toString();
 }

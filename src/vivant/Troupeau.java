@@ -7,13 +7,13 @@ public class Troupeau {
 	ArrayList<Animal> animaux;
 	
 	public Troupeau() {
-		nombre=0;
+		nombre = 0;
 		animaux = new ArrayList<Animal>();
 	}
 	
 	public void addAnimal(Animal a) {
 		// Pas d'animaux différent dans le même troupeau
-		if (nombre!=0 && getAnimal(0).equals(a)) {
+		if (nombre!=0 && !getAnimal(0).toString().equals(a.toString())) {
 			System.err.println("Erreur: l'animal est différent du troupeau !");
 			return;
 		}
@@ -24,5 +24,9 @@ public class Troupeau {
 	
 	public Animal getAnimal(int i) {
 		return animaux.get(i);
+	}
+
+	public ArrayList<Animal> getAnimaux() {
+		return animaux;
 	}
 }

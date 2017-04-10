@@ -11,6 +11,10 @@ public class Loup extends Animal {
 		age = 0;
 		energie = 20;
 	}
+
+	public String toString() {
+		return "L";
+	}
 	
 	
 }
