@@ -13,6 +13,7 @@ public class Main {
 		monde.getTroupeaux(0).addAnimal(new Mouton(0,0));
 		monde.getTroupeaux(0).addAnimal(new Mouton(0,0));
 		monde.getTroupeaux(0).addAnimal(new Mouton(0,1));
+
 		
 		// Troupeau de Loup
 		monde.addTroupeaux(new Troupeau());
@@ -23,8 +24,14 @@ public class Main {
 		// erreur
 		//monde.getTroupeaux(0).addAnimal(new Loup(0,2));
 
-		
-		// Affichage
-		System.out.println(monde.toString());
+		for (int jour=0 ; jour<=30 ; jour++) {
+			System.out.println("Jour: "+jour+".");
+			// Mise à jour
+			monde.maj();
+			//System.out.println(monde.getTroupeaux(0).getAnimal(0).getVie());
+			
+			// Affichage
+			System.out.println(monde.toString());
+		}
 	}	
 }

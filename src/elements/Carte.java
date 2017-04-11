@@ -28,7 +28,7 @@ public class Carte {
 	
 	public String toString() {
 		StringBuilder table = new StringBuilder();
-		table.append("H: Herbe / F: Foret / P: Plaine\n");
+		table.append("L: Lac / F: Foret / P: Plaine\n");
 		
 		for (int y=0 ; y<lengthCarteY() ; y++) {
 			table.append("| ");

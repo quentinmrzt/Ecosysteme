@@ -35,7 +35,7 @@ public class Monde {
 		
 		// Construction du String
 		StringBuilder table = new StringBuilder();
-		table.append("H: Herbe / F: Foret / P: Plaine\nM: Mouton / L: Loup\n");
+		table.append("L: Lac / F: Foret / P: Plaine\nM: Mouton / L: Loup\n");
 		
 		for (int y=0 ; y<carte.lengthCarteY() ; y++) {
 			table.append("| ");
@@ -53,6 +53,8 @@ public class Monde {
 	}
 
 	public void maj() {
-		
+		for (Troupeau t: troupeaux) {
+			t.maj();
+		}
 	}
 }

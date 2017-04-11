@@ -1,6 +1,7 @@
 package vivant;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Troupeau {
 	protected int nombre;
@@ -28,5 +29,26 @@ public class Troupeau {
 
 	public ArrayList<Animal> getAnimaux() {
 		return animaux;
+	}
+	
+	public void maj() {
+		ArrayList<Integer> mort = new ArrayList<Integer>();
+		int i=0;
+		
+		for (Animal a: animaux) {
+			a.maj();
+			// si un animal est mort
+			if (a.getVie() <= 0) {
+				mort.add(i);
+			}
+			i++;
+		}
+		
+		// On inverse pour ne pas avoir de décallage
+		Collections.reverse(mort);
+		for (int test: mort) {
+			System.out.println("Un "+animaux.get(test).toString()+" est mort.");
+			animaux.remove(test);
+		}
 	}
 }
