@@ -8,19 +8,31 @@ public class Monde {
 	protected Carte carte;
 	protected ArrayList<Troupeau> troupeaux;
 	
-	public Monde(int x, int y) {
-		carte = new Carte(x,y);
+	
+	// CONSTRUCTEUR
+	public Monde(Terrain[][] t) {
+		carte = new Carte(t);
 		troupeaux = new ArrayList<Troupeau>(); 
 	}
 	
+	
+	// GETTERS et SETTERS
 	public Carte getCarte() { return carte; }
 	public void setCarte(Carte carte) { this.carte = carte; }
 	public Troupeau getTroupeaux(int i) { return troupeaux.get(i); }
 	public void addTroupeaux(Troupeau t) { troupeaux.add(t); }
 
+	
+	// AUTRES
+	public void maj() {
+		for (Troupeau t: troupeaux) {
+			t.maj(carte);
+		}
+	}
+	
 	public String toString() {
 		// Récupération des animaux
-		String tab[][] = new String[carte.lengthCarteY()][carte.lengthCarteX()];
+		String tab[][] = new String[carte.getTailleY()][carte.getTailleX()];
 
 		for(Troupeau t: troupeaux) {
 			for(Animal a: t.getAnimaux()) {
@@ -37,9 +49,9 @@ public class Monde {
 		StringBuilder table = new StringBuilder();
 		table.append("L: Lac / F: Foret / P: Plaine\nM: Mouton / L: Loup\n");
 		
-		for (int y=0 ; y<carte.lengthCarteY() ; y++) {
+		for (int y=0 ; y<carte.getTailleY() ; y++) {
 			table.append("| ");
-			for (int x=0 ; x<carte.lengthCarteX() ; x++) {
+			for (int x=0 ; x<carte.getTailleX() ; x++) {
 				if (tab[y][x] == null) {
 					table.append(carte.getTerrain(x,y).toString()+"  | ");
 				} else {
@@ -50,11 +62,5 @@ public class Monde {
 		}
 		
 		return table.toString();	
-	}
-
-	public void maj() {
-		for (Troupeau t: troupeaux) {
-			t.maj();
-		}
 	}
 }

@@ -15,14 +15,14 @@ public class Simulation extends JFrame {
 	    this.setLocationRelativeTo(null);
 
 		// MONDE
-	    Monde monde = new Monde(10,10);
+	    //Monde monde = new Monde(10,10);
 		
 		// MENU
-		Menu menu = new Menu(monde);
-		this.setJMenuBar(menu);
+		//Menu menu = new Menu(monde);
+		//this.setJMenuBar(menu);
 		
 		// ON MET A JOUR
-		monde.maj();
+		//monde.maj();
 		
 		pack();
 		setVisible(true);

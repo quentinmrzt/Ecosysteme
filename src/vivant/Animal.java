@@ -1,19 +1,37 @@
 package vivant;
 
+import java.util.Random;
+
+
 public abstract class Animal {
+	protected boolean male;
 	protected int vie;
 	protected int nourriture;
 	protected int eau;
 	protected int age;
 	protected int energie;
+	protected int viande;
 	protected int posX;
 	protected int posY;
 	
+	
+	// CONSTRUCTEUR
 	public Animal(int x, int y) {
 		posX = x;
 		posY = y;
+		age = 0;
+
+		// sexe aléatoire
+		Random r = new Random();
+		int valeur = r.nextInt(1);
+		if (valeur==0) {
+			male = true;
+		} else {
+			male = false;
+		}
 	}
 
+	
 	// GETTERS ET SETTERS
 	public int getPosX() { return posX; } 
 	public void setPosX(int posX) { this.posX = posX; } 
@@ -30,14 +48,28 @@ public abstract class Animal {
 	public int getEnergie() { return energie; } 
 	public void setEnergie(int energie) { this.energie = energie; }
 
+	
+	// AUTRES
 	public abstract String toString();
+	
+	public void deplacement(int direction) {
+		if (direction==1) {
+			posY--;
+		} else if (direction==2) {
+			posX++;
+		} else if (direction==3) {
+			posY++;
+		} else if (direction==4) {
+			posX--;
+		}
+	}
 	
 	// ce qui ce passe chaque jour
 	public void maj() {
 		nourriture--;
 		eau--;
 		age++;
-		if (nourriture<=0 && eau<=0) {
+		if (nourriture<=0 || eau<=0) {
 			vie--;
 		}
 		energie = vie;

@@ -2,38 +2,46 @@ package elements;
 
 public class Carte {
 	protected Terrain carte[][];
+	protected int tailleX;
+	protected int tailleY;
 	
+	
+	// CONSTRUCTEUR
 	public Carte(int x, int y) {
+		tailleX = x;
+		tailleY = y;
 		carte = new Terrain[y][x];
-		
-		// Par défaut la carte est une plaine
-		for (int j=0 ; j<y ; j++) {
-			for (int i=0 ; i<x ; i++) {
-				carte[j][i] = new Plaine();
-			}
-		}
 	}
 	
-	public Terrain getTerrain(int x, int y) {
-		return carte[y][x];
+	public Carte(Terrain[][] t) {
+		tailleX = t[0].length;
+		tailleY = t.length;
+		carte = t;
 	}
 	
-	public int lengthCarteY() {
-		return carte.length;
-	}
 	
-	public int lengthCarteX() {
-		return carte[0].length;
-	}
+	// GETTERS et SETTERS
+	public Terrain getTerrain(int x, int y) { return carte[y][x]; } 
+	public void setTerrain(int x, int y, Terrain t) { carte[y][x]=t; }
+	public int getTailleX() { return tailleX; }
+	public void setTailleX(int tailleX) { this.tailleX = tailleX; }
+	public int getTailleY() { return tailleY; }
+	public void setTailleY(int tailleY) { this.tailleY = tailleY; }
 	
+	
+	// AUTRES
 	public String toString() {
 		StringBuilder table = new StringBuilder();
 		table.append("L: Lac / F: Foret / P: Plaine\n");
 		
-		for (int y=0 ; y<lengthCarteY() ; y++) {
+		for (int y=0 ; y<tailleY ; y++) {
 			table.append("| ");
-			for (int x=0 ; x<lengthCarteX() ; x++) {
-				table.append(carte[y][x].toString()+" | ");
+			for (int x=0 ; x<tailleX ; x++) {
+				if(carte[y][x] == null) {
+					table.append("X | ");
+				} else {
+					table.append(carte[y][x].toString()+" | ");
+				}
 			}
 			table.append("\n");
 		}

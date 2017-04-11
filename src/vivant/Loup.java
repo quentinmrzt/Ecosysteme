@@ -17,6 +17,7 @@ public class Loup extends Animal {
 		nourriture = 10;
 		eau = 10;
 		age = 0;
+		viande = 5;
 		energie = vie;
 	}
 

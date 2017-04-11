@@ -1,6 +1,5 @@
 package vivant;
 
-
 /*
  * Mouton:
  * Durée de vie: 10 à 12 ans mais jusqu'à 20 ans
@@ -11,11 +10,11 @@ public class Mouton extends Animal {
 
 	public Mouton(int x, int y) {
 		super(x,y);
-		
+
 		vie = 10;
 		nourriture = 10;
 		eau = 10;
-		age = 0;
+		viande = 10;
 		energie = vie;
 	}
 
