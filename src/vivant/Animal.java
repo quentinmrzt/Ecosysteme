@@ -23,7 +23,7 @@ public abstract class Animal {
 
 		// sexe aléatoire
 		Random r = new Random();
-		int valeur = r.nextInt(1);
+		int valeur = r.nextInt(2);
 		if (valeur==0) {
 			male = true;
 		} else {
@@ -47,6 +47,8 @@ public abstract class Animal {
 	public void setAge(int age) { this.age = age; } 
 	public int getEnergie() { return energie; } 
 	public void setEnergie(int energie) { this.energie = energie; }
+	public boolean estMale() { return male; } 
+	public void setMale(boolean b) { this.male = b; }
 
 	
 	// AUTRES

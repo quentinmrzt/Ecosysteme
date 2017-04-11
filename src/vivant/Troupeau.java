@@ -32,6 +32,7 @@ public class Troupeau {
 	public Animal getAnimal(int i) { return animaux.get(i); }
 	public ArrayList<Animal> getAnimaux() { return animaux; }
 	public Carte getMemoire() { return memoire; }
+	public int getNombre() { return nombre; }
 	
 	// AUTRES
 	public void mort() {
@@ -49,13 +50,12 @@ public class Troupeau {
 		// On inverse pour ne pas avoir de décallage
 		Collections.reverse(mort);
 		for (int test: mort) {
-			System.out.println("Un "+animaux.get(test).toString()+" est mort.");
 			animaux.remove(test);
 			nombre--;
 		}
 	}
 	
-	// on determine la marche à suivre
+	// on determine la marche à suivre (très basique)
 	// 0: stationnaire / 1: haut / 2: droite / 3: bas / 4: gauche
 	public int deplacement(int i) {
 		int x = animaux.get(i).getPosX();
@@ -84,6 +84,43 @@ public class Troupeau {
 		return 0;
 	}
 	
+	public void meneur() {
+		int ageMaxM=0;
+		int meneurM=0;
+		int ageMaxF=0;
+		int meneurF=0;
+		
+		int meneur=0;
+		int i=0;
+		for (Animal a: animaux) {
+			if(a.estMale()) {
+				if(a.getAge()>ageMaxM) {
+					ageMaxM=a.getAge();
+					meneurM=i;
+				}
+			} else {
+				if(a.getAge()>ageMaxF) {
+					ageMaxF=a.getAge();
+					meneurF=i;
+				}
+			}
+			i++;
+		}
+		
+		// s'il y a un mâle
+		if(ageMaxM != 0) {
+			meneur = meneurM;
+		} else {
+			meneur = meneurF;
+		}
+		
+		// si le meneur a changé, on le met en position 0
+		if(meneur!=0) {
+			Animal tmp = animaux.get(0);
+			animaux.set(0, animaux.get(meneur));
+			animaux.set(meneur, tmp);
+		}
+	}
 	
 	public void maj(Carte carte) {			
 		// on met à jours chaque animaux
@@ -96,6 +133,9 @@ public class Troupeau {
 		
 		// on regarde s'il reste des survivant
 		if (nombre != 0) {
+			// on choisit un nouveau meneur
+			this.meneur();
+			
 			// l'animal 0 est le meneur
 			int x=animaux.get(0).getPosX();
 			int y=animaux.get(0).getPosY();

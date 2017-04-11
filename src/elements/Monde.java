@@ -1,11 +1,13 @@
 package elements;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import vivant.*;
 
 public class Monde {
 	protected Carte carte;
+	protected int nombre;
 	protected ArrayList<Troupeau> troupeaux;
 	
 	
@@ -13,6 +15,7 @@ public class Monde {
 	public Monde(Terrain[][] t) {
 		carte = new Carte(t);
 		troupeaux = new ArrayList<Troupeau>(); 
+		nombre=0;
 	}
 	
 	
@@ -20,13 +23,38 @@ public class Monde {
 	public Carte getCarte() { return carte; }
 	public void setCarte(Carte carte) { this.carte = carte; }
 	public Troupeau getTroupeaux(int i) { return troupeaux.get(i); }
-	public void addTroupeaux(Troupeau t) { troupeaux.add(t); }
+	public int getNombre() { return nombre; }
+	public void addTroupeaux(Troupeau t) { 
+		troupeaux.add(t);
+		nombre++;
+	}
 
 	
 	// AUTRES
 	public void maj() {
 		for (Troupeau t: troupeaux) {
 			t.maj(carte);
+		}
+		this.mort();
+	}
+	
+	public void mort() {
+		ArrayList<Integer> mort = new ArrayList<Integer>();
+		int i=0;
+		
+		for (Troupeau t: troupeaux) {
+			// si un animal est mort
+			if(t.getNombre()==0) {
+				mort.add(i);
+			}
+			i++;
+		}
+		
+		// On inverse pour ne pas avoir de décallage
+		Collections.reverse(mort);
+		for (int m: mort) {
+			troupeaux.remove(m);
+			nombre--;
 		}
 	}
 	
