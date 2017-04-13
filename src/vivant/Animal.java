@@ -2,9 +2,12 @@ package vivant;
 
 import java.util.Random;
 
+import elements.Carte;
+
 
 public abstract class Animal {
 	protected boolean male;
+	protected boolean meneur;
 	protected int vie;
 	protected int nourriture;
 	protected int eau;
@@ -20,6 +23,7 @@ public abstract class Animal {
 		posX = x;
 		posY = y;
 		age = 0;
+		meneur = false;
 
 		// sexe aléatoire
 		Random r = new Random();
@@ -49,10 +53,19 @@ public abstract class Animal {
 	public void setEnergie(int energie) { this.energie = energie; }
 	public boolean estMale() { return male; } 
 	public void setMale(boolean b) { this.male = b; }
-
+	public boolean estMeneur() { return meneur; } 
+	public void setMeneur(boolean b) { this.meneur = b; }
 	
 	// AUTRES
 	public abstract String toString();
+	public abstract void manger(Carte carte);
+	
+	public void boire(Carte carte) {
+		// Boire
+		if (eau>0 && !carte.getTerrain(posX, posY).boire()) {
+			eau--;
+		}
+	}
 	
 	public void deplacement(int direction) {
 		if (direction==1) {
@@ -67,13 +80,18 @@ public abstract class Animal {
 	}
 	
 	// ce qui ce passe chaque jour
-	public void maj() {
-		nourriture--;
-		eau--;
-		age++;
+	public void maj(Carte carte) {
 		if (nourriture<=0 || eau<=0) {
 			vie--;
 		}
+		
+		// Manger
+		this.manger(carte);
+		
+		
+
+		age++;
+
 		energie = vie;
 	}
 }

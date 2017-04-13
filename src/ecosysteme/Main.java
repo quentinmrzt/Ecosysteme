@@ -41,14 +41,22 @@ public class Main {
 		System.out.println(monde.getTroupeaux(0).getMemoire().toString());
 		System.out.println(monde.toString());
 
-		for (int temps=0 ; temps<=30 ; temps++) {
+		int i=0;
+		for (int temps=0 ; temps<=100 ; temps++) {
 			System.out.println("Temps: "+temps+".");
+			
 			// Mise à jour
 			monde.maj();
+			
+			if (i==0 && monde.getNombre()==0) {
+				i=temps;
+			}
 					
 			// Affichage
 			System.out.println("Le monde: ");
 			System.out.println(monde.toString());
 		}
+		
+		System.out.println("Les moutons ont survécus: "+i+" jours.");
 	}	
 }

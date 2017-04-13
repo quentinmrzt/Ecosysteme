@@ -1,5 +1,7 @@
 package vivant;
 
+import elements.Carte;
+
 /*
  * Mouton:
  * Durée de vie: 10 à 12 ans mais jusqu'à 20 ans
@@ -20,5 +22,11 @@ public class Mouton extends Animal {
 
 	public String toString() {
 		return "M";
+	}
+
+	public void manger(Carte carte) {
+		if (nourriture>0 && !carte.getTerrain(posX, posY).broute()) {
+			nourriture--;
+		}
 	}
 }

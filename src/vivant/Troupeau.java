@@ -90,7 +90,7 @@ public class Troupeau {
 		int ageMaxF=0;
 		int meneurF=0;
 		
-		int meneur=0;
+		if (nombre!=0) {
 		int i=0;
 		for (Animal a: animaux) {
 			if(a.estMale()) {
@@ -104,80 +104,83 @@ public class Troupeau {
 					meneurF=i;
 				}
 			}
+			
 			i++;
 		}
 		
 		// s'il y a un mâle
+		int iMeneur;
 		if(ageMaxM != 0) {
-			meneur = meneurM;
+			iMeneur = meneurM;
 		} else {
-			meneur = meneurF;
+			iMeneur = meneurF;
 		}
 		
 		// si le meneur a changé, on le met en position 0
-		if(meneur!=0) {
-			Animal tmp = animaux.get(0);
-			animaux.set(0, animaux.get(meneur));
-			animaux.set(meneur, tmp);
+		if(iMeneur!=0) {
+			Animal ancien = animaux.get(0);
+			ancien.setMeneur(false);
+			animaux.set(0, animaux.get(iMeneur));
+			animaux.set(iMeneur, ancien);
+		}
+		
+		// L'animal en première position est le meneur
+		animaux.get(0).setMeneur(true);
 		}
 	}
 	
 	public void maj(Carte carte) {			
-		// on met à jours chaque animaux
+		// l'animal 0 est (techniquement) le meneur
+		int meneurX = animaux.get(0).getPosX();
+		int meneurY= animaux.get(0).getPosY();
+			
+		// on regarde si le troupeau est groupé
+		enGroupe = true;
 		for (Animal a: animaux) {		
-			a.maj();
+			if(meneurX != a.getPosX() || meneurY != a.getPosY()) {
+				enGroupe = false;
+			}
 		}
-		
+			
+		for (Animal a: animaux) {
+			// on déplace le troupeau
+			if (a.estMeneur() && enGroupe) {
+				// le meneur et groupé: on avance
+				a.deplacement(deplacement(0));
+					
+				// on met à jour la position du meneur
+				meneurX = animaux.get(0).getPosX();
+				meneurY = animaux.get(0).getPosY();
+			} else if (meneurX != a.getPosX() || meneurY != a.getPosY()) {
+				// si on est pas avec le meneur: on se dirige vers lui
+				int direction=0;
+					
+				if(a.getPosY()>meneurY) {
+					direction=1;
+				} else if (a.getPosX()<meneurX) {
+					direction=2;
+				} else if (a.getPosY()<meneurY) {
+					direction=3;
+				} else if (a.getPosX()>meneurX) {
+					direction=4;
+				}
+					
+				a.deplacement(direction);
+			}
+
+			// si le troupeau ne connaissait pas ce lieu, on le garde en mémoire
+			if (memoire.getTerrain(a.getPosX(), a.getPosY()) == null) {
+				memoire.setTerrain(a.getPosX(), a.getPosY(), carte.getTerrain(a.getPosX(), a.getPosY()));
+			}
+				
+			// on met à jour l'animal
+			a.maj(carte);				
+		}
+			
 		// on supprime les morts du groupe
 		this.mort();
-		
-		// on regarde s'il reste des survivant
-		if (nombre != 0) {
-			// on choisit un nouveau meneur
-			this.meneur();
 			
-			// l'animal 0 est le meneur
-			int x=animaux.get(0).getPosX();
-			int y=animaux.get(0).getPosY();
-			
-			// on regarde si le troupeau est groupé
-			enGroupe = true;
-			for (Animal a: animaux) {		
-				if(x != a.getPosX() || y != a.getPosY()) {
-					enGroupe = false;
-				}
-			}
-			
-			// on déplace le troupeau
-			int i=0;
-			for (Animal a: animaux) {
-				if (x == a.getPosX() && y == a.getPosY() && enGroupe) {
-					a.deplacement(deplacement(i));
-					x = animaux.get(0).getPosX();
-					y = animaux.get(0).getPosY();
-				} else if (x != a.getPosX() || y != a.getPosY()) {
-					int direction=0;
-					
-					if(a.getPosY()>y) {
-						direction=1;
-					} else if (a.getPosX()<x) {
-						direction=2;
-					} else if (a.getPosY()<y) {
-						direction=3;
-					} else if (a.getPosX()>x) {
-						direction=4;
-					}
-					
-					a.deplacement(direction);
-				}
-				
-				
-				// si le troupeau ne connaissait pas ce lieu, on le garde en mémoire
-				if (memoire.getTerrain(a.getPosX(), a.getPosY()) == null) {
-					memoire.setTerrain(a.getPosX(), a.getPosY(), carte.getTerrain(a.getPosX(), a.getPosY()));
-				}
-				i++;
-			}
-		}
+		// on choisit un nouveau meneur
+		this.meneur();
 	}
 }

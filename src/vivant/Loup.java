@@ -1,5 +1,7 @@
 package vivant;
 
+import elements.Carte;
+
 /*
  * Loup:
  * Hauteur au garrot: Mâle: 60 à 90cm / Femelle: 64cm
@@ -24,6 +26,10 @@ public class Loup extends Animal {
 	public String toString() {
 		return "L";
 	}
-	
-	
+
+	public void manger(Carte carte) {
+		if (nourriture>0) {
+			nourriture--;
+		}
+	}
 }
