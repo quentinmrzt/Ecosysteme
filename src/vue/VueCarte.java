@@ -2,13 +2,14 @@ package vue;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
 
 import modele.Carte;
+import modele.Case;
+import modele.Herbe;
 
 public class VueCarte extends JPanel implements Observer {
 	private int largeur, hauteur;
@@ -37,7 +38,13 @@ public class VueCarte extends JPanel implements Observer {
 				int positionX = x*this.herbe.getTaille();
 				int positionY = y*this.herbe.getTaille();
 				
-				g.drawImage(herbe.getImage(5), positionX, positionY, this);
+				Case caseTmp = this.carte.getCase(x, y);
+				
+				if(caseTmp instanceof Herbe) {
+					g.drawImage(herbe.getImage(caseTmp.getEtat()), positionX, positionY, this);
+				} else {
+					System.out.println("Autre");
+				}
 			}
 		}
 	}

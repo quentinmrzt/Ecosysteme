@@ -1,24 +1,31 @@
 package vue;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 
 import modele.Carte;
 
 public class Fenetre extends JFrame {
-	private VueCarte vueCarte;
+	private VueCarteInformation vueCarteInformation;
+	private VueHorloge vueHorloge;
 	
 	public Fenetre(Carte carte) {
-		this.setPreferredSize(new Dimension(600, 600));
+		this.setPreferredSize(new Dimension(900, 600));
 		this.setTitle("Graphique");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
+		this.setLayout(new FlowLayout());
+		
 		// Panneau
-		this.vueCarte = new VueCarte(carte);
-		this.add(vueCarte);
+		this.vueCarteInformation = new VueCarteInformation(carte);
+		this.add(vueCarteInformation);
+		
+		this.vueHorloge = new VueHorloge();
+		this.add(vueHorloge);
 
 		pack();
 		this.setVisible(true);

@@ -20,10 +20,7 @@ public class Herbe extends Case {
 		}
 	}
 
-	@Override
 	public String toString() {
 		return "Herbe: "+this.etat;
 	}
-	
-	
 }
