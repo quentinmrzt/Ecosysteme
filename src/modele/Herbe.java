@@ -5,7 +5,7 @@ public class Herbe extends Case {
 	
 	public Herbe() {
 		this.min = 0;
-		this.max = 10;
+		this.max = 9;
 		
 		this.etat = 0;
 	}
@@ -22,5 +22,9 @@ public class Herbe extends Case {
 
 	public String toString() {
 		return "Herbe: "+this.etat;
+	}
+
+	public void evolution() {
+		this.pousse();
 	}
 }

@@ -9,4 +9,8 @@ public class Terre extends Case {
 	public int getEtat() {
 		return 0;
 	}
+
+	public void evolution() {
+		
+	}
 }

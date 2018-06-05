@@ -12,7 +12,7 @@ public class VueCarteInformation extends JPanel {
 	private VueCarte vueCarte;
 	
 	public VueCarteInformation(Carte carte) {
-		this.setPreferredSize(new Dimension(600, 600));
+		this.setPreferredSize(new Dimension(600, 500));
 		
 		this.setBorder(BorderFactory.createTitledBorder("Carte"));
 		this.setBackground(Color.WHITE);

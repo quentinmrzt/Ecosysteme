@@ -24,6 +24,8 @@ public class VueCarte extends JPanel implements Observer {
 		this.hauteur = this.carte.getTailleY()*this.herbe.getTaille();
 		
 		this.setPreferredSize(new Dimension(largeur, hauteur));
+		
+		carte.addObserver(this);
 	}
 	
 	public void paint(Graphics g) {
@@ -43,18 +45,13 @@ public class VueCarte extends JPanel implements Observer {
 				if(caseTmp instanceof Herbe) {
 					g.drawImage(herbe.getImage(caseTmp.getEtat()), positionX, positionY, this);
 				} else {
-					System.out.println("Autre");
+					System.err.println("Autre");
 				}
 			}
 		}
 	}
 
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("REPAINT = VueCarte");
-
 		this.repaint();
-		
 	}
-	
-	
 }
